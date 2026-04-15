@@ -92,11 +92,15 @@ export const mockPools: PokerPool[] = [
 export const mockFeed: FeedItem[] = [
   { type: 'duel', data: mockDuels[0] },
   { type: 'prediction', data: mockPredictions[0] },
+  { type: 'duel', data: mockDuels[3] },
   { type: 'duel', data: mockDuels[1] },
   { type: 'pool', data: mockPools[0] },
+  { type: 'duel', data: mockDuels[4] },
   { type: 'prediction', data: mockPredictions[1] },
+  { type: 'duel', data: mockDuels[5] },
   { type: 'pool', data: mockPools[1] },
   { type: 'duel', data: mockDuels[2] },
+  { type: 'duel', data: mockDuels[6] },
   { type: 'prediction', data: mockPredictions[2] },
 ];
 
