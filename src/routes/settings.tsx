@@ -46,6 +46,7 @@ function saveSettings(data: Record<string, unknown>) {
 function SettingsPage() {
   const [openSection, setOpenSection] = useState<SectionKey>(null);
   const { connected, publicKey, walletName, disconnect, setShowConnectModal } = useWalletContext();
+  const { theme, accent: accentColor, setTheme, setAccent: setAccentColor } = useTheme();
 
   // Profile state — use defaults for SSR, hydrate from localStorage
   const [username, setUsername] = useState(currentUser.username);
@@ -60,10 +61,6 @@ function SettingsPage() {
   const [notifEmail, setNotifEmail] = useState(true);
   const [notifInApp, setNotifInApp] = useState(true);
 
-  // Appearance state
-  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>('dark');
-  const [accentColor, setAccentColor] = useState('cyan');
-
   // Language state
   const [language, setLanguage] = useState('es');
 
@@ -77,8 +74,6 @@ function SettingsPage() {
     if (saved.notifPush !== undefined) setNotifPush(saved.notifPush);
     if (saved.notifEmail !== undefined) setNotifEmail(saved.notifEmail);
     if (saved.notifInApp !== undefined) setNotifInApp(saved.notifInApp);
-    if (saved.theme) setTheme(saved.theme);
-    if (saved.accentColor) setAccentColor(saved.accentColor);
     if (saved.language) setLanguage(saved.language);
   }, []);
 
@@ -97,11 +92,6 @@ function SettingsPage() {
   const handleSaveNotifications = () => {
     saveSettings({ ...loadSettings(), notifPush, notifEmail, notifInApp });
     toast.success('Preferencias de notificación guardadas');
-  };
-
-  const handleSaveAppearance = () => {
-    saveSettings({ ...loadSettings(), theme, accentColor });
-    toast.success('Apariencia actualizada');
   };
 
   const handleSaveLanguage = () => {
