@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useWalletContext } from '@/contexts/WalletContext';
+import { useTheme, type AccentColor } from '@/contexts/ThemeContext';
 import {
   User, Bell, Shield, Palette, Wallet, Globe, LogOut, ChevronRight, ChevronDown,
   Camera, Save, Eye, EyeOff, Smartphone, Mail, MessageSquare, Sun, Moon, Monitor,
@@ -45,6 +46,7 @@ function saveSettings(data: Record<string, unknown>) {
 function SettingsPage() {
   const [openSection, setOpenSection] = useState<SectionKey>(null);
   const { connected, publicKey, walletName, disconnect, setShowConnectModal } = useWalletContext();
+  const { theme, accent: accentColor, setTheme, setAccent: setAccentColor } = useTheme();
 
   // Profile state — use defaults for SSR, hydrate from localStorage
   const [username, setUsername] = useState(currentUser.username);
@@ -59,10 +61,6 @@ function SettingsPage() {
   const [notifEmail, setNotifEmail] = useState(true);
   const [notifInApp, setNotifInApp] = useState(true);
 
-  // Appearance state
-  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>('dark');
-  const [accentColor, setAccentColor] = useState('cyan');
-
   // Language state
   const [language, setLanguage] = useState('es');
 
@@ -76,8 +74,6 @@ function SettingsPage() {
     if (saved.notifPush !== undefined) setNotifPush(saved.notifPush);
     if (saved.notifEmail !== undefined) setNotifEmail(saved.notifEmail);
     if (saved.notifInApp !== undefined) setNotifInApp(saved.notifInApp);
-    if (saved.theme) setTheme(saved.theme);
-    if (saved.accentColor) setAccentColor(saved.accentColor);
     if (saved.language) setLanguage(saved.language);
   }, []);
 
@@ -98,11 +94,6 @@ function SettingsPage() {
     toast.success('Preferencias de notificación guardadas');
   };
 
-  const handleSaveAppearance = () => {
-    saveSettings({ ...loadSettings(), theme, accentColor });
-    toast.success('Apariencia actualizada');
-  };
-
   const handleSaveLanguage = () => {
     saveSettings({ ...loadSettings(), language });
     toast.success(language === 'es' ? 'Idioma actualizado' : 'Language updated');
@@ -114,10 +105,10 @@ function SettingsPage() {
   };
 
   const accents = [
-    { id: 'cyan', label: 'Cyan', color: 'bg-[oklch(0.78_0.15_195)]' },
-    { id: 'magenta', label: 'Magenta', color: 'bg-[oklch(0.65_0.25_330)]' },
-    { id: 'gold', label: 'Gold', color: 'bg-[oklch(0.82_0.16_85)]' },
-    { id: 'green', label: 'Green', color: 'bg-[oklch(0.72_0.19_145)]' },
+    { id: 'cyan' as AccentColor, label: 'Cyan', color: 'bg-[oklch(0.78_0.15_195)]' },
+    { id: 'magenta' as AccentColor, label: 'Magenta', color: 'bg-[oklch(0.65_0.25_330)]' },
+    { id: 'gold' as AccentColor, label: 'Gold', color: 'bg-[oklch(0.82_0.16_85)]' },
+    { id: 'green' as AccentColor, label: 'Green', color: 'bg-[oklch(0.72_0.19_145)]' },
   ];
 
   const settingsItems: { key: SectionKey; icon: typeof User; label: string; desc: string }[] = [
@@ -290,9 +281,7 @@ function SettingsPage() {
                 ))}
               </div>
             </div>
-            <Button variant="cyan" size="sm" className="gap-1.5" onClick={handleSaveAppearance}>
-              <Save className="w-3.5 h-3.5" /> Guardar
-            </Button>
+            <p className="text-[10px] text-muted-foreground mt-2">Los cambios se aplican en tiempo real ✨</p>
           </div>
         );
       case 'language':
