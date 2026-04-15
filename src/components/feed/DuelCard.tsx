@@ -70,17 +70,11 @@ function CryptoConditionPills({ duel }: { duel: Duel }) {
         )}
 
         {/* Digit bet: show time */}
-        {isDigit && crypto.expiresAt && (
+        {isDigit && crypto.expiresLabel && (
           <>
             <span className="text-muted-foreground text-[10px]">+</span>
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-muted/50 border border-border text-[11px] font-heading font-bold text-foreground">
-              ⏱️ {(() => {
-                const d = new Date(crypto.expiresAt!);
-                const h = d.getUTCHours();
-                const m = d.getUTCMinutes().toString().padStart(2, '0');
-                const ampm = h >= 12 ? 'PM' : 'AM';
-                return `${h % 12 || 12}:${m} ${ampm}`;
-              })()}
+              ⏱️ {crypto.expiresLabel}
             </span>
           </>
         )}
