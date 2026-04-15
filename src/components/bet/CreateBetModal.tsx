@@ -37,6 +37,8 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
   const [duration, setDuration] = useState('24h');
   const [step, setStep] = useState(1);
   const [cryptoData, setCryptoData] = useState<any>(null);
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
 
   const resetForm = () => {
     setCategory('general');
