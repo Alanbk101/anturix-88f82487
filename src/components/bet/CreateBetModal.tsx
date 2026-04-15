@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy } from 'lucide-react';
-import { X, Swords, Eye, Users, Clock, Coins, Zap, Bitcoin } from 'lucide-react';
+import { Trophy, X, Swords, Eye, Users, Clock, Coins, Zap, Bitcoin, Bell, Mail, CheckCircle } from 'lucide-react';
 import { useWalletContext } from '@/contexts/WalletContext';
 import { CryptoBetForm } from './CryptoBetForm';
 
@@ -38,6 +37,8 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
   const [duration, setDuration] = useState('24h');
   const [step, setStep] = useState(1);
   const [cryptoData, setCryptoData] = useState<any>(null);
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
 
   const resetForm = () => {
     setCategory('general');
@@ -48,6 +49,8 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
     setDuration('24h');
     setStep(1);
     setCryptoData(null);
+    setWaitlistEmail('');
+    setWaitlistSubmitted(false);
   };
 
   const handleClose = () => {
@@ -204,6 +207,53 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                       <p className="text-xs text-center text-muted-foreground">
                         Sports duels launching soon — stay tuned!
                       </p>
+
+                      {/* Waitlist form */}
+                      <div className="glass-card p-4 rounded-xl border border-border space-y-3">
+                        {waitlistSubmitted ? (
+                          <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="flex flex-col items-center gap-2 py-2"
+                          >
+                            <CheckCircle className="w-8 h-8 text-emerald-400" />
+                            <p className="font-heading text-sm font-bold text-foreground">¡Estás en la lista!</p>
+                            <p className="text-[11px] text-muted-foreground text-center">Te notificaremos cuando los duelos deportivos estén listos.</p>
+                          </motion.div>
+                        ) : (
+                          <>
+                            <div className="flex items-center gap-2">
+                              <Bell className="w-4 h-4 text-amber-400" />
+                              <p className="text-xs font-heading font-bold text-foreground">Únete a la waitlist</p>
+                            </div>
+                            <p className="text-[10px] text-muted-foreground">Sé el primero en enterarte cuando lancemos apuestas deportivas.</p>
+                            <div className="flex gap-2">
+                              <div className="relative flex-1">
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+                                <input
+                                  type="email"
+                                  value={waitlistEmail}
+                                  onChange={(e) => setWaitlistEmail(e.target.value)}
+                                  placeholder="tu@email.com"
+                                  className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-muted/50 border border-border text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_10px_oklch(0.82_0.18_195/0.2)] transition-all"
+                                />
+                              </div>
+                              <motion.button
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => {
+                                  if (waitlistEmail.includes('@') && waitlistEmail.includes('.')) {
+                                    setWaitlistSubmitted(true);
+                                  }
+                                }}
+                                disabled={!waitlistEmail.includes('@') || !waitlistEmail.includes('.')}
+                                className="px-4 py-2.5 rounded-xl bg-amber-500/80 text-black text-xs font-heading font-bold tracking-wider disabled:opacity-40 disabled:cursor-not-allowed hover:bg-amber-500 transition-colors whitespace-nowrap"
+                              >
+                                Notify Me
+                              </motion.button>
+                            </div>
+                          </>
+                        )}
+                      </div>
                     </div>
                   ) : isCrypto ? (
                     <CryptoBetForm onDataChange={setCryptoData} />
