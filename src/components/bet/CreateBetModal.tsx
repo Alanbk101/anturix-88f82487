@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy } from 'lucide-react';
-import { X, Swords, Eye, Users, Clock, Coins, Zap, Bitcoin } from 'lucide-react';
+import { Trophy, X, Swords, Eye, Users, Clock, Coins, Zap, Bitcoin, Bell, Mail, CheckCircle } from 'lucide-react';
 import { useWalletContext } from '@/contexts/WalletContext';
 import { CryptoBetForm } from './CryptoBetForm';
 
