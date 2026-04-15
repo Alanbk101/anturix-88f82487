@@ -110,7 +110,7 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => { setCategory('general'); setStep(1); }}
                 className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-heading font-bold transition-all ${
-                  !isCrypto
+                  category === 'general'
                     ? 'bg-primary/15 text-primary border border-primary/50'
                     : 'bg-muted/30 text-muted-foreground border border-transparent hover:bg-muted/50'
                 }`}
@@ -127,6 +127,18 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                 }`}
               >
                 <Bitcoin className="w-3.5 h-3.5" /> Crypto
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={() => { setCategory('sports'); setStep(1); }}
+                className={`relative flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-heading font-bold transition-all ${
+                  isSports
+                    ? 'bg-amber-500/15 text-amber-400 border border-amber-500/50'
+                    : 'bg-muted/30 text-muted-foreground border border-transparent hover:bg-muted/50'
+                }`}
+              >
+                <Trophy className="w-3.5 h-3.5" /> Sports
+                <span className="absolute -top-2 -right-1 px-1.5 py-0.5 rounded-full bg-amber-500/90 text-[7px] font-bold text-black leading-none">SOON</span>
               </motion.button>
             </div>
 
