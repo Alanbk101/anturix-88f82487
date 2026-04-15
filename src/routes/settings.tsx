@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { currentUser } from '@/data/mockData';
-import { useEffect } from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
