@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Trophy } from 'lucide-react';
 import { X, Swords, Eye, Users, Clock, Coins, Zap, Bitcoin } from 'lucide-react';
 import { useWalletContext } from '@/contexts/WalletContext';
 import { CryptoBetForm } from './CryptoBetForm';
 
-type Category = 'general' | 'crypto';
+type Category = 'general' | 'crypto' | 'sports';
 
 const betTypes = [
   { value: 'duel', label: '1v1 Duelo', icon: Swords, description: 'Challenge someone directly' },
@@ -63,9 +64,10 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
   };
 
   const isCrypto = category === 'crypto';
+  const isSports = category === 'sports';
   const isGeneralValid = title.trim().length > 0 && description.trim().length > 0;
   const isCryptoValid = cryptoData?.condition != null;
-  const isStep1Valid = isCrypto ? isCryptoValid : isGeneralValid;
+  const isStep1Valid = isSports ? false : isCrypto ? isCryptoValid : isGeneralValid;
   const isValid = isStep1Valid && parseFloat(amount) > 0;
 
   return (
@@ -108,7 +110,7 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => { setCategory('general'); setStep(1); }}
                 className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-heading font-bold transition-all ${
-                  !isCrypto
+                  category === 'general'
                     ? 'bg-primary/15 text-primary border border-primary/50'
                     : 'bg-muted/30 text-muted-foreground border border-transparent hover:bg-muted/50'
                 }`}
@@ -125,6 +127,18 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                 }`}
               >
                 <Bitcoin className="w-3.5 h-3.5" /> Crypto
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={() => { setCategory('sports'); setStep(1); }}
+                className={`relative flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-heading font-bold transition-all ${
+                  isSports
+                    ? 'bg-amber-500/15 text-amber-400 border border-amber-500/50'
+                    : 'bg-muted/30 text-muted-foreground border border-transparent hover:bg-muted/50'
+                }`}
+              >
+                <Trophy className="w-3.5 h-3.5" /> Sports
+                <span className="absolute -top-2 -right-1 px-1.5 py-0.5 rounded-full bg-amber-500/90 text-[7px] font-bold text-black leading-none">SOON</span>
               </motion.button>
             </div>
 
@@ -147,7 +161,51 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                   exit={{ opacity: 0, x: 20 }}
                   className="p-4 space-y-5"
                 >
-                  {isCrypto ? (
+                  {isSports ? (
+                    <div className="space-y-4">
+                      {/* Sports form preview with overlay */}
+                      <div className="relative">
+                        <div className="opacity-40 pointer-events-none space-y-4">
+                          <div>
+                            <label className="text-xs font-medium text-muted-foreground mb-2 block">TIPO DE APUESTA</label>
+                            <div className="grid grid-cols-3 gap-2">
+                              {betTypes.map((type) => (
+                                <div key={type.value} className="p-3 rounded-xl border border-border bg-muted/30 text-center">
+                                  <type.icon className="w-5 h-5 mx-auto mb-1.5 text-muted-foreground" />
+                                  <p className="text-[11px] font-heading font-bold text-foreground">{type.label}</p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium text-muted-foreground mb-2 block">EVENTO / TÍTULO</label>
+                            <div className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border text-sm text-muted-foreground">
+                              e.g. Lakers vs Celtics - NBA Finals Game 7
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium text-muted-foreground mb-2 block">DESCRIPCIÓN</label>
+                            <div className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border text-sm text-muted-foreground h-20">
+                              Describe your prediction or bet terms...
+                            </div>
+                          </div>
+                        </div>
+                        {/* Coming Soon overlay */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                          <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="px-5 py-2.5 rounded-full bg-amber-500/20 border border-amber-500/50 backdrop-blur-sm"
+                          >
+                            <span className="font-heading font-bold text-sm text-amber-400 tracking-wider">Coming Soon 🏀</span>
+                          </motion.div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-center text-muted-foreground">
+                        Sports duels launching soon — stay tuned!
+                      </p>
+                    </div>
+                  ) : isCrypto ? (
                     <CryptoBetForm onDataChange={setCryptoData} />
                   ) : (
                     <>
@@ -206,9 +264,13 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                   <button
                     onClick={() => setStep(2)}
                     disabled={!isStep1Valid}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-heading text-sm font-bold tracking-wider disabled:opacity-40 disabled:cursor-not-allowed transition-opacity glow-cyan"
+                    className={`w-full py-3 rounded-xl font-heading text-sm font-bold tracking-wider transition-opacity ${
+                      isSports
+                        ? 'bg-muted/50 text-muted-foreground cursor-not-allowed opacity-40'
+                        : 'bg-gradient-to-r from-primary to-accent text-primary-foreground disabled:opacity-40 disabled:cursor-not-allowed glow-cyan'
+                    }`}
                   >
-                    SIGUIENTE →
+                    {isSports ? 'PRÓXIMAMENTE' : 'SIGUIENTE →'}
                   </button>
                 </motion.div>
               )}
