@@ -5,7 +5,7 @@ import { X, Swords, Eye, Users, Clock, Coins, Zap, Bitcoin } from 'lucide-react'
 import { useWalletContext } from '@/contexts/WalletContext';
 import { CryptoBetForm } from './CryptoBetForm';
 
-type Category = 'general' | 'crypto';
+type Category = 'general' | 'crypto' | 'sports';
 
 const betTypes = [
   { value: 'duel', label: '1v1 Duelo', icon: Swords, description: 'Challenge someone directly' },
