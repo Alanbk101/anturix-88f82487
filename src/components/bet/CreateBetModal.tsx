@@ -49,6 +49,8 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
     setDuration('24h');
     setStep(1);
     setCryptoData(null);
+    setWaitlistEmail('');
+    setWaitlistSubmitted(false);
   };
 
   const handleClose = () => {
