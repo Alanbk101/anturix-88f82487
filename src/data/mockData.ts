@@ -45,6 +45,34 @@ export const mockDuels: Duel[] = [
     communityBacking: { challenger: 156, opponent: 201 }, percentage: { challenger: 44, opponent: 56 },
     totalPool: 15.8, createdAt: '2026-04-13T10:00:00Z',
   },
+  {
+    id: 'd4', title: 'Crypto Duelo', eventLabel: 'BTC ABOVE $70,000',
+    betAmount: 2, challenger: mockUsers[3], opponent: mockUsers[0], status: 'active',
+    communityBacking: { challenger: 89, opponent: 134 }, percentage: { challenger: 40, opponent: 60 },
+    totalPool: 12.4, createdAt: '2026-04-14T09:00:00Z',
+    crypto: { asset: 'BTC', condition: 'above', targetPrice: 70000 },
+  },
+  {
+    id: 'd5', title: 'Crypto Duelo', eventLabel: 'ETH CERRARÁ EN IMPAR',
+    betAmount: 1, challenger: mockUsers[5], opponent: mockUsers[6], status: 'active',
+    communityBacking: { challenger: 67, opponent: 72 }, percentage: { challenger: 48, opponent: 52 },
+    totalPool: 5.3, createdAt: '2026-04-14T12:00:00Z',
+    crypto: { asset: 'ETH', condition: 'odd', expiresAt: '2026-04-15T16:00:00Z' },
+  },
+  {
+    id: 'd6', title: 'Crypto Duelo', eventLabel: 'SOL vs BTC — CARRERA AL PRECIO',
+    betAmount: 5, challenger: mockUsers[7], opponent: mockUsers[4], status: 'active',
+    communityBacking: { challenger: 201, opponent: 178 }, percentage: { challenger: 53, opponent: 47 },
+    totalPool: 22.1, createdAt: '2026-04-14T08:00:00Z',
+    crypto: { asset: 'SOL', condition: 'first_to', targetPrice: 160, assetB: 'BTC', targetPriceB: 72000 },
+  },
+  {
+    id: 'd7', title: 'Crypto Duelo', eventLabel: 'BTC TOCARÁ $75K — KAMIKAZE',
+    betAmount: 3, challenger: mockUsers[2], opponent: mockUsers[8], status: 'active',
+    communityBacking: { challenger: 145, opponent: 98 }, percentage: { challenger: 60, opponent: 40 },
+    totalPool: 9.8, createdAt: '2026-04-14T14:00:00Z',
+    crypto: { asset: 'BTC', condition: 'one_touch', targetPrice: 75000 },
+  },
 ];
 
 export const mockPredictions: Prediction[] = [
