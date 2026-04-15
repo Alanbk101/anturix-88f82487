@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useWalletContext } from '@/contexts/WalletContext';
+import { useTheme, type AccentColor } from '@/contexts/ThemeContext';
 import {
   User, Bell, Shield, Palette, Wallet, Globe, LogOut, ChevronRight, ChevronDown,
   Camera, Save, Eye, EyeOff, Smartphone, Mail, MessageSquare, Sun, Moon, Monitor,
