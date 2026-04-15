@@ -46,26 +46,40 @@ function SettingsPage() {
   const [openSection, setOpenSection] = useState<SectionKey>(null);
   const { connected, publicKey, walletName, disconnect, setShowConnectModal } = useWalletContext();
 
-  // Profile state
-  const saved = loadSettings();
-  const [username, setUsername] = useState(saved?.username ?? currentUser.username);
-  const [bio, setBio] = useState(saved?.bio ?? 'Crypto degen & prediction enthusiast 🎲');
+  // Profile state — use defaults for SSR, hydrate from localStorage
+  const [username, setUsername] = useState(currentUser.username);
+  const [bio, setBio] = useState('Crypto degen & prediction enthusiast 🎲');
 
   // Security state
   const [showPassword, setShowPassword] = useState(false);
-  const [twoFA, setTwoFA] = useState(saved?.twoFA ?? false);
+  const [twoFA, setTwoFA] = useState(false);
 
   // Notifications state
-  const [notifPush, setNotifPush] = useState(saved?.notifPush ?? true);
-  const [notifEmail, setNotifEmail] = useState(saved?.notifEmail ?? true);
-  const [notifInApp, setNotifInApp] = useState(saved?.notifInApp ?? true);
+  const [notifPush, setNotifPush] = useState(true);
+  const [notifEmail, setNotifEmail] = useState(true);
+  const [notifInApp, setNotifInApp] = useState(true);
 
   // Appearance state
-  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>(saved?.theme ?? 'dark');
-  const [accentColor, setAccentColor] = useState(saved?.accentColor ?? 'cyan');
+  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>('dark');
+  const [accentColor, setAccentColor] = useState('cyan');
 
   // Language state
-  const [language, setLanguage] = useState(saved?.language ?? 'es');
+  const [language, setLanguage] = useState('es');
+
+  // Hydrate from localStorage after mount
+  useEffect(() => {
+    const saved = loadSettings();
+    if (!saved) return;
+    if (saved.username) setUsername(saved.username);
+    if (saved.bio) setBio(saved.bio);
+    if (saved.twoFA !== undefined) setTwoFA(saved.twoFA);
+    if (saved.notifPush !== undefined) setNotifPush(saved.notifPush);
+    if (saved.notifEmail !== undefined) setNotifEmail(saved.notifEmail);
+    if (saved.notifInApp !== undefined) setNotifInApp(saved.notifInApp);
+    if (saved.theme) setTheme(saved.theme);
+    if (saved.accentColor) setAccentColor(saved.accentColor);
+    if (saved.language) setLanguage(saved.language);
+  }, []);
 
   const toggle = (key: SectionKey) => setOpenSection(prev => prev === key ? null : key);
 
