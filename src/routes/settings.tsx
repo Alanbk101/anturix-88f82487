@@ -105,10 +105,10 @@ function SettingsPage() {
   };
 
   const accents = [
-    { id: 'cyan', label: 'Cyan', color: 'bg-[oklch(0.78_0.15_195)]' },
-    { id: 'magenta', label: 'Magenta', color: 'bg-[oklch(0.65_0.25_330)]' },
-    { id: 'gold', label: 'Gold', color: 'bg-[oklch(0.82_0.16_85)]' },
-    { id: 'green', label: 'Green', color: 'bg-[oklch(0.72_0.19_145)]' },
+    { id: 'cyan' as AccentColor, label: 'Cyan', color: 'bg-[oklch(0.78_0.15_195)]' },
+    { id: 'magenta' as AccentColor, label: 'Magenta', color: 'bg-[oklch(0.65_0.25_330)]' },
+    { id: 'gold' as AccentColor, label: 'Gold', color: 'bg-[oklch(0.82_0.16_85)]' },
+    { id: 'green' as AccentColor, label: 'Green', color: 'bg-[oklch(0.72_0.19_145)]' },
   ];
 
   const settingsItems: { key: SectionKey; icon: typeof User; label: string; desc: string }[] = [
@@ -281,9 +281,7 @@ function SettingsPage() {
                 ))}
               </div>
             </div>
-            <Button variant="cyan" size="sm" className="gap-1.5" onClick={handleSaveAppearance}>
-              <Save className="w-3.5 h-3.5" /> Guardar
-            </Button>
+            <p className="text-[10px] text-muted-foreground mt-2">Los cambios se aplican en tiempo real ✨</p>
           </div>
         );
       case 'language':
