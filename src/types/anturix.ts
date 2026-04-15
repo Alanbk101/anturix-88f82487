@@ -26,7 +26,7 @@ export interface DuelCryptoInfo {
   targetPrice?: number;
   assetB?: CryptoAsset;
   targetPriceB?: number;
-  expiresAt?: string; // ISO datetime for even/odd
+  expiresLabel?: string; // e.g. "4:00 PM"
 }
 
 export interface Duel {

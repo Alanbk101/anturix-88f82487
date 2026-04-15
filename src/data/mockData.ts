@@ -57,7 +57,7 @@ export const mockDuels: Duel[] = [
     betAmount: 1, challenger: mockUsers[5], opponent: mockUsers[6], status: 'active',
     communityBacking: { challenger: 67, opponent: 72 }, percentage: { challenger: 48, opponent: 52 },
     totalPool: 5.3, createdAt: '2026-04-14T12:00:00Z',
-    crypto: { asset: 'ETH', condition: 'odd', expiresAt: '2026-04-15T16:00:00Z' },
+    crypto: { asset: 'ETH', condition: 'odd', expiresLabel: '4:00 PM' },
   },
   {
     id: 'd6', title: 'Crypto Duelo', eventLabel: 'SOL vs BTC — CARRERA AL PRECIO',

@@ -70,11 +70,11 @@ function CryptoConditionPills({ duel }: { duel: Duel }) {
         )}
 
         {/* Digit bet: show time */}
-        {isDigit && crypto.expiresAt && (
+        {isDigit && crypto.expiresLabel && (
           <>
             <span className="text-muted-foreground text-[10px]">+</span>
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-muted/50 border border-border text-[11px] font-heading font-bold text-foreground">
-              ⏱️ {new Date(crypto.expiresAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              ⏱️ {crypto.expiresLabel}
             </span>
           </>
         )}
