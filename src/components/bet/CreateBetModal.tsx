@@ -64,9 +64,10 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
   };
 
   const isCrypto = category === 'crypto';
+  const isSports = category === 'sports';
   const isGeneralValid = title.trim().length > 0 && description.trim().length > 0;
   const isCryptoValid = cryptoData?.condition != null;
-  const isStep1Valid = isCrypto ? isCryptoValid : isGeneralValid;
+  const isStep1Valid = isSports ? false : isCrypto ? isCryptoValid : isGeneralValid;
   const isValid = isStep1Valid && parseFloat(amount) > 0;
 
   return (
