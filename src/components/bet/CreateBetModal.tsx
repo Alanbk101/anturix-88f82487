@@ -163,30 +163,30 @@ export function CreateBetModal({ open, onClose }: CreateBetModalProps) {
                 >
                   {isSports ? (
                     <div className="space-y-4">
-                      {/* Sports form preview with overlay */}
+                      {/* Sports categories showcase */}
                       <div className="relative">
                         <div className="opacity-40 pointer-events-none space-y-4">
-                          <div>
-                            <label className="text-xs font-medium text-muted-foreground mb-2 block">TIPO DE APUESTA</label>
-                            <div className="grid grid-cols-3 gap-2">
-                              {betTypes.map((type) => (
-                                <div key={type.value} className="p-3 rounded-xl border border-border bg-muted/30 text-center">
-                                  <type.icon className="w-5 h-5 mx-auto mb-1.5 text-muted-foreground" />
-                                  <p className="text-[11px] font-heading font-bold text-foreground">{type.label}</p>
-                                </div>
-                              ))}
-                            </div>
+                          <label className="text-xs font-medium text-muted-foreground mb-2 block">DEPORTES DISPONIBLES</label>
+                          <div className="grid grid-cols-3 gap-2">
+                            {[
+                              { emoji: '🏀', label: 'Basketball', sub: 'NBA · FIBA' },
+                              { emoji: '⚽', label: 'Fútbol', sub: 'Liga MX · UEFA' },
+                              { emoji: '⚾', label: 'Béisbol', sub: 'MLB · LMB' },
+                              { emoji: '🥊', label: 'MMA / Box', sub: 'UFC · Boxing' },
+                              { emoji: '🏈', label: 'NFL', sub: 'Football' },
+                              { emoji: '🎾', label: 'Tenis', sub: 'ATP · WTA' },
+                            ].map((sport) => (
+                              <div key={sport.label} className="p-3 rounded-xl border border-border bg-muted/30 text-center">
+                                <span className="text-2xl block mb-1">{sport.emoji}</span>
+                                <p className="text-[11px] font-heading font-bold text-foreground">{sport.label}</p>
+                                <p className="text-[8px] text-muted-foreground mt-0.5">{sport.sub}</p>
+                              </div>
+                            ))}
                           </div>
                           <div>
                             <label className="text-xs font-medium text-muted-foreground mb-2 block">EVENTO / TÍTULO</label>
                             <div className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border text-sm text-muted-foreground">
                               e.g. Lakers vs Celtics - NBA Finals Game 7
-                            </div>
-                          </div>
-                          <div>
-                            <label className="text-xs font-medium text-muted-foreground mb-2 block">DESCRIPCIÓN</label>
-                            <div className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border text-sm text-muted-foreground h-20">
-                              Describe your prediction or bet terms...
                             </div>
                           </div>
                         </div>
